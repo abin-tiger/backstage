@@ -48,7 +48,9 @@ jobs:
           node-version: 16.x
       - run: npm install --global yarn
       - run: yarn install --frozen-lockfile
-      - run: yarn tsc
+      - run: |
+          export NODE_OPTIONS="--max_old_space_size=4096"
+          yarn tsc
       - run: yarn build:backend --config app-config.yaml
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
